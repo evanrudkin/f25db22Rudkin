@@ -1,0 +1,19 @@
+extends layout
+
+block content
+  h1 Search Results – Location
+  p This page will display Location data such as population, primary language, and country.
+  p Displaying a few example locations below:
+
+  - var results = [{ population: 8000000, primaryLanguage: 'English', country: 'United States' }, { population: 900000, primaryLanguage: 'French', country: 'France' }, { population: 12000000, primaryLanguage: 'Japanese', country: 'Japan' }];
+  
+  .container-fluid
+    .row
+      each item in results
+        .col-sm-3
+          p #{item.country}
+          p Language: #{item.primaryLanguage}
+          p Population: #{item.population}
+
+
+

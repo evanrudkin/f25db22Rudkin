@@ -1,0 +1,19 @@
+extends layout
+
+block content
+  h1 A Random Location
+  p Each refresh will display three random location images.
+
+  - const image_names = ['city.jpg', 'mountain.jpg', 'island.jpg', 'desert.jpg', 'forest.jpg']
+
+  - for (let i = 0; i < 3; i++) {
+    - const randIndex = Math.floor(Math.random() * image_names.length)
+    - const name = image_names[randIndex]
+    img(
+      src=`/images/${name}`,
+      alt=`${name}`,
+      width="300",
+      height="300",
+      class="m-2 rounded border"
+    )
+  - }
