@@ -22,22 +22,26 @@ exports.location_detail = async function (req, res) {
   }
 };
 
-// Handle Location create on POST
+// Handle Costume create on POST.
 exports.location_create_post = async function (req, res) {
-  console.log(req.body);
-  const document = new Location({
-    city: req.body.city,
-    state: req.body.state,
-    population: req.body.population,
-  });
+  console.log(req.body);  // helps verify what’s received
+
+  let document = new Location();
+  // Expecting JSON like:
+  // {"Country":"Brazil","primaryLanguage":"portuguese","Population": 212000000}
+  document.Country = req.body.Country;
+  document.primaryLanguage = req.body.primaryLanguage;
+  document.population = req.body.population;
+
   try {
-    const result = await document.save();
+    let result = await document.save();
     res.send(result);
   } catch (err) {
     res.status(500);
-    res.send(`{"error": "${err}"}`);
+    res.send(`{"error": ${err}}`);
   }
 };
+
 
 // Handle Location delete on DELETE
 exports.location_delete = async function (req, res) {
