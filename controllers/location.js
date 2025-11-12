@@ -64,3 +64,20 @@ exports.location_update_put = async function (req, res) {
     res.send(`{"error": "${err}"}`);
   }
 };
+
+// VIEWS 
+// Handle a show all view 
+exports.location_view_all_Page = async function(req, res) { 
+    try { 
+        const theLocation = await Location.find(); 
+        res.render('location', { 
+            title: 'Location Search Results', 
+            results: theLocation 
+        }); 
+    } 
+    catch (err) { 
+        res.status(500); 
+        res.send(`{"error": ${err}}`); 
+    } 
+};
+

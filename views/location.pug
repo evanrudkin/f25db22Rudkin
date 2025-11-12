@@ -9,11 +9,9 @@ block content
   
   .container-fluid
     .row
-      each item in results
-        .col-sm-3
-          p #{item.country}
-          p Language: #{item.primaryLanguage}
-          p Population: #{item.population}
+      ul
+        each location in results
+          li #{location.country} - #{location.primaryLanguage} - $#{location.population}
 
 
 
