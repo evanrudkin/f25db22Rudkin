@@ -10,12 +10,10 @@ var locationRouter = require('./routes/location');
 var gridRouter = require('./routes/grid');
 var pickRouter = require('./routes/pick');
 var location = require("./models/location");
-console.log("✅ Location model loaded successfully");
-
+var resourceRouter = require("./routes/resource");
 
 require('dotenv').config();
 const mongoose = require('mongoose');
-
 
 var app = express();
 
@@ -47,6 +45,8 @@ app.use('/users', usersRouter);
 app.use('/location', locationRouter);
 app.use('/grid', gridRouter)
 app.use('/randomitem', pickRouter);
+app.use("/resource", resourceRouter);
+
 
 // ---------- SEED DATABASE (temporary, for assignment only) ----------
 const Location = require("./models/location");
