@@ -30,7 +30,7 @@ exports.location_create_post = async function (req, res) {
   console.log(req.body);  // helps verify what’s received
 
   let document = new Location();
-  // Expecting JSON like:
+  // Expects JSON like:
   // {"Country":"Brazil","primaryLanguage":"portuguese","Population": 212000000}
   document.Country = req.body.Country;
   document.primaryLanguage = req.body.primaryLanguage;
@@ -88,3 +88,22 @@ exports.location_view_all_Page = async function(req, res) {
     } 
 };
 
+exports.location_update_put = async function(req, res) {
+    console.log(`update on id ${req.params.id} with body ${JSON.stringify(req.body)}`);
+
+    try {
+        let toUpdate = await Location.findById(req.params.id);
+
+        // Update fields ONLY if provided
+        if (req.body.Country) toUpdate.Country = req.body.Country;
+        if (req.body.primaryLanguage) toUpdate.primaryLanguage = req.body.primaryLanguage;
+        if (req.body.population) toUpdate.population = req.body.population;
+
+        let result = await toUpdate.save();
+        console.log("Success " + result);
+        res.send(result);
+    } catch (err) {
+        res.status(500);
+        res.send(`{"error": "${err}": Update for id ${req.params.id} failed"}`);
+    }
+};

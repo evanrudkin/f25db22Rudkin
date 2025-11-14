@@ -14,5 +14,7 @@ router.delete("/locations/:id", location_controller.location_delete);
 router.put("/locations/:id", location_controller.location_update_put);
 router.get("/locations/:id", location_controller.location_detail);
 router.get("/locations", location_controller.location_list);
+router.put('/locations/:id', location_controller.location_update_put);
+
 
 module.exports = router;
