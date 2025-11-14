@@ -1,3 +1,4 @@
+const location = require("../models/location");
 const Location = require("../models/location");
 
 // List of all Locations
@@ -12,15 +13,17 @@ exports.location_list = async function (req, res) {
 };
 
 // Detail for a specific Location
-exports.location_detail = async function (req, res) {
-  try {
-    const result = await Location.findById(req.params.id);
-    res.send(result);
-  } catch (err) {
-    res.status(500);
-    res.send(`{"error": "document for id ${req.params.id} not found"}`);
-  }
+exports.location_detail = async function(req, res) {
+    console.log("detail " + req.params.id);
+    try {
+        let result = await location.findById(req.params.id);
+        res.send(result);
+    } catch (error) {
+        res.status(500);
+        res.send(`{"error": "document for id ${req.params.id} not found"}`);
+    }
 };
+
 
 // Handle Costume create on POST.
 exports.location_create_post = async function (req, res) {

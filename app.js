@@ -48,7 +48,6 @@ app.use('/randomitem', pickRouter);
 app.use("/resource", resourceRouter);
 
 
-// ---------- SEED DATABASE (temporary, for assignment only) ----------
 const Location = require("./models/location");
 
 // async function to delete all and insert new records
