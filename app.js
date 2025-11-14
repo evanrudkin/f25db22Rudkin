@@ -71,7 +71,7 @@ async function recreateDB() {
 }
 
 // Toggle this ONCE to seed, then comment it out after confirming data
-let reseed = true;
+let reseed = false;
 if (reseed) {
   recreateDB();
 }
