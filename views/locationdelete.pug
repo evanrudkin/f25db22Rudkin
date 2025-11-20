@@ -1,0 +1,55 @@
+extends layout
+
+block content
+  h1= title
+
+  if (toShow == null)
+    h2 No location exists with this ID
+  else
+    - let id = toShow._id
+    - let Country = toShow.Country
+    - let primaryLanguage = toShow.primaryLanguage
+    - let population = toShow.population
+
+    div.row
+      div.locationAttr.mr-3 ID:
+      div #{id}
+
+    div.row
+      div.locationAttr.mr-3 Country:
+      div #{Country}
+
+    div.row
+      div.locationAttr.mr-3 Primary Language:
+      div #{primaryLanguage}
+
+    div.row
+      div.locationAttr.mr-3 Population:
+      div #{population}
+
+    // Correct REST endpoint (adjust if needed)
+    - let actionid = "/resource/locations/" + id
+    script let actionid = "#{actionid}"
+
+    button(class="btn btn-danger m-2" onclick="deleteOnId()") Delete
+    button(class="btn btn-secondary m-2" onclick="cancel()") Cancel
+
+    script.
+      function cancel() {
+        window.location.href = '/location'
+      }
+
+    script.
+      function deleteOnId() {
+        fetch(actionid, {
+          method: 'DELETE'
+        })
+        .then(resp => resp.json())
+        .then(body => {
+          alert("Delete succeeded");
+          window.location.href = '/location';
+        })
+        .catch(error => {
+          alert("Delete failed: " + error);
+        });
+      }
