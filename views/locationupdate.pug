@@ -1,0 +1,47 @@
+extends layout
+
+block content
+  h1= title
+  
+  - let id = toShow._id
+  - let Country = toShow.Country
+  - let primaryLanguage = toShow.primaryLanguage
+  - let population = toShow.population
+  
+  div.row(class="mb-2")
+    div.mr-2 ID:
+    div #{id}
+
+  - let actionid = "/resource/locations/" + id
+
+  form(id="LocationForm", action=actionid, method="POST")
+    div.form-group
+      label.locationAttr(for="Country") Country
+      input#Country(type="text", name="Country", value=Country)
+
+    div.form-group
+      label.locationAttr(for="primaryLanguage") Primary Language
+      input#primaryLanguage(type="text", name="primaryLanguage", value=primaryLanguage)
+
+    div.form-group
+      label.locationAttr(for="population") Population
+      input#population(type="number", name="population", value=population)
+
+    input(type="submit")
+
+  script.
+    document.forms['LocationForm'].addEventListener('submit', (event) => {
+      event.preventDefault();
+
+      fetch(event.target.action, {
+        method: 'PUT',
+        body: new URLSearchParams(new FormData(event.target))
+      })
+      .then(resp => resp.json())
+      .then(body => {
+        alert("Update succeeded!");
+      })
+      .catch(error => {
+        alert("Update failed: " + error);
+      });
+    });
