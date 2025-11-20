@@ -1,8 +1,11 @@
 extends layout
 
 block content
-  h1= title
-  
+  if !toShow
+    h2 Invalid ID — No Location Found
+  else
+    h1= title
+
   - let id = toShow._id
   - let Country = toShow.Country
   - let primaryLanguage = toShow.primaryLanguage

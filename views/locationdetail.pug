@@ -1,23 +1,32 @@
 extends layout
 
 block content
-  h1 TESTING DETAIL PAGE
+  if !toShow
+    h2 Invalid ID — No Location Found
+  else
+    h1.mb-4 Location Details
 
-  - let id = toShow._id
-  - let lat = toShow.country
-  - let long = toShow.primaryLanguage
-  - let alt = toShow.population
+    div.card.shadow-lg.p-4.mt-3(style="max-width: 550px;")
+      h3.mb-4.text-center #{toShow.Country}
 
-  div
-    div.row
-      div(class='locationAttr mr-3') The location ID is:
-      div #{id}
-    div.row
-      div(class='locationAttr mr-3') The country is:
-      div #{lat}
-    div.row
-      div(class='locationAttr mr-3') The primary language is:
-      div #{long}
-    div.row
-      div(class='locationAttr mr-3') Population is:
-      div #{alt}
+      div.mb-2
+        strong Country:
+        span.ml-2 #{toShow.Country}
+
+      div.mb-2
+        strong Primary Language:
+        span.ml-2 #{toShow.primaryLanguage}
+
+      div.mb-2
+        strong Population:
+        span.ml-2 #{toShow.population}
+
+      div.mb-2
+        strong ID:
+        span.ml-2 #{toShow._id}
+
+      // Action buttons for easier navigation
+      div.mt-4.d-flex.justify-content-between
+        a.btn.btn-warning(href=`/location/update/?id=${toShow._id}`) Update
+        a.btn.btn-danger(href=`/location/delete/?id=${toShow._id}`) Delete
+        a.btn.btn-secondary(href='/location') Back
