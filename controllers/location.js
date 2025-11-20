@@ -46,16 +46,19 @@ exports.location_create_post = async function (req, res) {
 };
 
 
-// Handle Location delete on DELETE
+// Handle Location delete on DELETE.
 exports.location_delete = async function (req, res) {
+  console.log("delete " + req.params.id);
   try {
     const result = await Location.findByIdAndDelete(req.params.id);
+    console.log("Removed " + result);
     res.send(result);
   } catch (err) {
     res.status(500);
-    res.send(`{"error": "${err}"}`);
+    res.send(`{"error": "Error deleting ${err}"}`);
   }
 };
+
 
 // Handle Location update on PUT
 exports.location_update_put = async function (req, res) {
