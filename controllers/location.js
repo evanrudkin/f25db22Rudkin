@@ -106,3 +106,14 @@ exports.location_view_one_Page = async function(req, res) {
         res.send(`{'error': '${err}'}`);
     }
 };
+
+// Render the create page for Location
+exports.location_create_Page = function(req, res) {
+    console.log("Create view");
+    try {
+        res.render('locationcreate', { title: 'Create Location' });
+    } catch (err) {
+        res.status(500);
+        res.send(`{'error': '${err}'}`);
+    }
+};

@@ -1,0 +1,36 @@
+extends layout
+
+block content
+  h1= title
+
+  form(id="LocationForm", action="/resource/locations", method="POST")
+    div.form-group
+      label.locationAttr(for="Country") Country
+      input#Country(type="text", name="Country")
+
+    div.form-group
+      label.locationAttr(for="primaryLanguage") Primary Language
+      input#primaryLanguage(type="text", name="primaryLanguage")
+
+    div.form-group
+      label.locationAttr(for="population") Population
+      input#population(type="number", name="population")
+
+    input(type="submit")
+
+  script.
+    document.forms['LocationForm'].addEventListener('submit', (event) => {
+      event.preventDefault();
+
+      fetch(event.target.action, {
+        method: 'POST',
+        body: new URLSearchParams(new FormData(event.target))
+      })
+      .then(resp => resp.json())
+      .then(body => {
+        alert("Save succeeded!");
+      })
+      .catch(error => {
+        alert("Save failed: " + error);
+      });
+    });

@@ -8,5 +8,8 @@ router.get('/', location_controller.location_view_all_Page);
 /* GET detail page for one location */
 router.get('/detail', location_controller.location_view_one_Page);
 
+/* GET create location page */
+router.get('/create', location_controller.location_create_Page);
+
 module.exports = router;
 
