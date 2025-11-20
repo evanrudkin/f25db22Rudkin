@@ -1,0 +1,23 @@
+extends layout
+
+block content
+  h1 TESTING DETAIL PAGE
+
+  - let id = toShow._id
+  - let lat = toShow.country
+  - let long = toShow.primaryLanguage
+  - let alt = toShow.population
+
+  div
+    div.row
+      div(class='locationAttr mr-3') The location ID is:
+      div #{id}
+    div.row
+      div(class='locationAttr mr-3') The country is:
+      div #{lat}
+    div.row
+      div(class='locationAttr mr-3') The primary language is:
+      div #{long}
+    div.row
+      div(class='locationAttr mr-3') Population is:
+      div #{alt}

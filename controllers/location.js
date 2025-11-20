@@ -16,7 +16,7 @@ exports.location_list = async function (req, res) {
 exports.location_detail = async function(req, res) {
     console.log("detail " + req.params.id);
     try {
-        let result = await location.findById(req.params.id);
+        let result = await Location.findById(req.params.id);
         res.send(result);
     } catch (error) {
         res.status(500);
@@ -59,22 +59,6 @@ exports.location_delete = async function (req, res) {
   }
 };
 
-
-// Handle Location update on PUT
-exports.location_update_put = async function (req, res) {
-  try {
-    const toUpdate = await Location.findById(req.params.id);
-    if (req.body.city) toUpdate.city = req.body.city;
-    if (req.body.state) toUpdate.state = req.body.state;
-    if (req.body.population) toUpdate.population = req.body.population;
-    const result = await toUpdate.save();
-    res.send(result);
-  } catch (err) {
-    res.status(500);
-    res.send(`{"error": "${err}"}`);
-  }
-};
-
 // VIEWS 
 // Handle a show all view 
 exports.location_view_all_Page = async function(req, res) { 
@@ -108,5 +92,17 @@ exports.location_update_put = async function(req, res) {
     } catch (err) {
         res.status(500);
         res.send(`{"error": "${err}": Update for id ${req.params.id} failed"}`);
+    }
+};
+
+// Handle a show one view with id specified by query
+exports.location_view_one_Page = async function(req, res) {
+    console.log("Single view for id " + req.query.id);
+    try {
+        let result = await Location.findById(req.query.id);
+        res.render('locationdetail', { title: 'Location Detail', toShow: result });
+    } catch (err) {
+        res.status(500);
+        res.send(`{'error': '${err}'}`);
     }
 };
