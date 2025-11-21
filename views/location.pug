@@ -2,16 +2,26 @@ extends layout
 
 block content
   h1 Search Results – Location
-  p This page will display Location data such as population, primary language, and country.
-  p Displaying a few example locations below:
 
-  - var results = [{ population: 340100000, primaryLanguage: 'English', country: 'United States' }, { population: 68520000, primaryLanguage: 'French', country: 'France' }, { population: 124000000, primaryLanguage: 'Japanese', country: 'Japan' }];
-  
+  p Below are the locations retrieved from the database.
+
   .container-fluid
     .row
       ul
         each location in results
-          li #{location.country} - #{location.primaryLanguage} - $#{location.population}
+          li 
+            | #{location.Country} - #{location.primaryLanguage} - Population: #{location.population}
+
+            // Build update path using the ID
+            - let destination = `dispatch('/location/update/?id=${location._id}')`
+
+            button.btn.btn-primary.ml-2(onclick=destination) Update
+
+  // JS dispatcher (used by Update button)
+  script.
+    function dispatch(path){
+      window.location.href = path
+    }
 
 
 

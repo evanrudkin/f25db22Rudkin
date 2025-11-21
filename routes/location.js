@@ -14,7 +14,7 @@ router.get('/create', location_controller.location_create_Page);
 // GET update location page
 router.get('/update', location_controller.location_update_Page);
 
-/* GET delete location page */
+// GET delete location page
 router.get('/delete', location_controller.location_delete_Page);
 
 
