@@ -1,19 +1,19 @@
 extends layout
 
 block content
-  h1= title
-  p welcome to my render server
-  button(type="button", class="btn btn-secondary", onclick="faster()") Press Me
+  h1 Location App
 
-  div(id="faster") add in extra
+  if (!user)
+    h3 You are not logged in.
+    a.btn.btn-primary(href="/auth/login") Login
+    br
+    br
+    a.btn.btn-secondary(href="/auth/register") Register
 
-  script.
-    let value = 1;
-    let amt = 2;
-
-    function faster() {
-      amt *= 2;
-      value += amt;
-      document.getElementById("faster").innerHTML = `Faster ${value} times ${amt}`;
-    }
-
+  if (user)
+    h3 Welcome, #{user.username}!
+    br
+    a.btn.btn-success(href="/location") Go to Locations
+    br
+    br
+    a.btn.btn-danger(href="/auth/logout") Logout

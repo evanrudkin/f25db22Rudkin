@@ -15,7 +15,6 @@ var authRouter = require('./routes/auth');
 require('dotenv').config();
 const mongoose = require('mongoose');
 
-// PASSPORT + SESSION CONFIG
 const passport = require('passport');
 const session = require('express-session');
 const Account = require('./models/account');
@@ -41,11 +40,11 @@ const db = mongoose.connection;
 
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 db.once('open', function () {
-  console.log('✅ Connected successfully to MongoDB');
+  console.log('Connected successfully to MongoDB');
 });
 
 app.use(session({
-  secret: 'keyboard cat',   // required by assignment
+  secret: 'keyboard cat',
   resave: false,
   saveUninitialized: false
 }));
@@ -63,7 +62,7 @@ app.use('/location', locationRouter);
 app.use('/grid', gridRouter);
 app.use('/randomitem', pickRouter);
 app.use('/resource', resourceRouter);
-app.use('/auth', authRouter);  
+app.use('/auth', authRouter); 
 
 const Location = require("./models/location");
 
@@ -80,9 +79,9 @@ async function recreateDB() {
     let instance = new Location(loc);
     try {
       let doc = await instance.save();
-      console.log("💾 Saved:", doc.Country);
+      console.log("Saved:", doc.Country);
     } catch (err) {
-      console.error("❌ Save error:", err);
+      console.error("Save error:", err);
     }
   }
 }
