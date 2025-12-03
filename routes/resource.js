@@ -1,24 +1,31 @@
-var express = require("express");
+var express = require('express');
 var router = express.Router();
 
-// Require controller modules.
-var api_controller = require("../controllers/api");
-var location_controller = require("../controllers/location");
+var location_controller = require('../controllers/location');
 
-// API route
-router.get("/", api_controller.api);
+// Authentication middleware
+function requireLogin(req, res, next) {
+    if (req.isAuthenticated && req.isAuthenticated()) {
+        return next();
+    }
+    res.status(401).json({ error: "Unauthorized" });
+}
 
-const requireLogin = require('../helpers/requireLogin');
+// ---------- PROTECTED REST API ROUTES ----------
 
-// LOCATION ROUTES
-router.post("/locations", location_controller.location_create_post);
-router.delete("/locations/:id", location_controller.location_delete);
-router.put("/locations/:id", location_controller.location_update_put);
-router.get("/locations/:id", location_controller.location_detail);
-router.get("/locations", location_controller.location_list);
+// List all locations (GET) — usually protected too
+router.get('/locations', requireLogin, location_controller.location_list);
+
+// Get a single location
+router.get('/locations/:id', requireLogin, location_controller.location_detail);
+
+// Create a location
 router.post('/locations', requireLogin, location_controller.location_create_post);
-router.put('/locations/:id', requireLogin, location_controller.location_update_put);
-router.delete('/locations/:id', requireLogin, location_controller.location_delete);
 
+// Update a location
+router.put('/locations/:id', requireLogin, location_controller.location_update_put);
+
+// Delete a location
+router.delete('/locations/:id', requireLogin, location_controller.location_delete);
 
 module.exports = router;

@@ -1,27 +1,42 @@
 extends layout
 
 block content
-  h1 Search Results – Location
+  h1= title
 
-  p Below are the locations retrieved from the database.
+  // --- BUTTON TO CREATE NEW LOCATION ---
+  a.btn.btn-success(href="/location/create" style="margin-bottom: 20px;") Create New Location
 
-  .container-fluid
-    .row
-      ul
+  if results.length == 0
+    p No locations found.
+  else
+    table.table.table-striped
+      thead
+        tr
+          th Country
+          th Primary Language
+          th Population
+          th Actions
+      tbody
         each location in results
-          li 
-            | #{location.Country} - #{location.primaryLanguage} - Population: #{location.population}
+          tr
+            td #{location.Country}
+            td #{location.primaryLanguage}
+            td #{location.population}
 
-            // Build update path using the ID
-            - let destination = `dispatch('/location/update/?id=${location._id}')`
+            td
+              // --- DETAIL BUTTON ---
+              a.btn.btn-info.btn-sm(
+                href=`/location/detail?id=${location._id}`
+              ) Details
 
-            button.btn.btn-primary.ml-2(onclick=destination) Update
+              // --- UPDATE BUTTON ---
+              a.btn.btn-warning.btn-sm(
+                href=`/location/update?id=${location._id}`
+              ) Update
 
-  // JS dispatcher (used by Update button)
-  script.
-    function dispatch(path){
-      window.location.href = path
-    }
-
+              // --- DELETE BUTTON ---
+              a.btn.btn-danger.btn-sm(
+                href=`/location/delete?id=${location._id}`
+              ) Delete
 
 
